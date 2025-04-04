@@ -22,4 +22,8 @@ public class Image {
     private Blob image;
     private String downloadUrl;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
 }
