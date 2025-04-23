@@ -47,7 +47,10 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public List<CategoryResponse> getAllCategories() {
-        return List.of();
+        return categoryRepository.findAll()
+                .stream()
+                .map(categoryMapper::toResponse)
+                .toList();
     }
 
     @Override
