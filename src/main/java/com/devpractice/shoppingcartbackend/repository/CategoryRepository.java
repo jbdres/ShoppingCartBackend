@@ -1,0 +1,7 @@
+package com.devpractice.shoppingcartbackend.repository;
+
+import com.devpractice.shoppingcartbackend.model.Category;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+}
