@@ -68,7 +68,15 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
+    @Transactional
     public void deleteCategoryById(Long id) {
-
+        if (!categoryRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Category with id " + id + " not found");
+        }
+        try {
+            categoryRepository.deleteById(id);
+        } catch (DataAccessException e) {
+            throw new DatabaseException("Error while deleting category from the database");
+        }
     }
 }
