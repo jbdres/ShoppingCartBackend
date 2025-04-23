@@ -38,6 +38,16 @@ public class GlobalExceptionHandler {
         return errors;
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex, HttpServletRequest request) {
+        ErrorResponse errorResponse = createErrorResponse(
+                ErrorCodes.UNEXPECTED_ERROR,
+                "An unexpected error occurred: " + ex.getMessage(),
+                request.getRequestURI()
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     private ErrorResponse createErrorResponse(String errorCode, String message, String path) {
         return new ErrorResponse(errorCode, message, LocalDateTime.now(), path);
     }
