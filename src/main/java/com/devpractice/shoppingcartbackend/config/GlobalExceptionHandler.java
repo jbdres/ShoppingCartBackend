@@ -3,8 +3,6 @@ package com.devpractice.shoppingcartbackend.config;
 import com.devpractice.shoppingcartbackend.exception.BusinessException;
 import com.devpractice.shoppingcartbackend.utils.ErrorCodes;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -33,7 +31,7 @@ public class GlobalExceptionHandler {
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error ->
-            errors.put(error.getField(), error.getDefaultMessage())
+                errors.put(error.getField(), error.getDefaultMessage())
         );
         return errors;
     }
@@ -59,15 +57,6 @@ public class GlobalExceptionHandler {
             case ErrorCodes.RESOURCE_CONFLICT -> HttpStatus.CONFLICT;
             default -> HttpStatus.INTERNAL_SERVER_ERROR;
         };
-    }
-
-    @Data
-    @AllArgsConstructor
-    static class ErrorResponse {
-        private String errorCode;
-        private String message;
-        private LocalDateTime timestamp;
-        private String path;
     }
 
 }
