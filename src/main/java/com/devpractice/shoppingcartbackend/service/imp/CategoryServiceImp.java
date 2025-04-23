@@ -40,7 +40,9 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public CategoryResponse getCategoryById(Long id) {
-        return null;
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Category with id " + id + " not found"));
+        return categoryMapper.toResponse(category);
     }
 
     @Override
