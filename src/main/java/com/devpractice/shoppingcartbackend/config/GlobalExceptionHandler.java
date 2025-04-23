@@ -1,17 +1,14 @@
 package com.devpractice.shoppingcartbackend.config;
 
-import com.devpractice.shoppingcartbackend.exception.BusinessException;
 import com.devpractice.shoppingcartbackend.utils.ErrorCodes;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import java.time.LocalDateTime;
 
-@Controller
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
     private ErrorResponse createErrorResponse(String errorCode, String message, String path) {
