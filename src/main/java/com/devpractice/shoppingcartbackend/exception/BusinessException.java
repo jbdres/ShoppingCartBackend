@@ -3,7 +3,7 @@ package com.devpractice.shoppingcartbackend.exception;
 import lombok.Getter;
 
 @Getter
-public class BusinessException extends RuntimeException {
+public abstract class BusinessException extends RuntimeException {
 
     private final String errorCode;
 
