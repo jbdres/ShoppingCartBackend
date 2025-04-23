@@ -3,7 +3,9 @@ package com.devpractice.shoppingcartbackend.mapper;
 import com.devpractice.shoppingcartbackend.dto.request.CategoryRequest;
 import com.devpractice.shoppingcartbackend.dto.response.CategoryResponse;
 import com.devpractice.shoppingcartbackend.model.Category;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CategoryMapper {
 
     public Category toEntity(CategoryRequest request) {
