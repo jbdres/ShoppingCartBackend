@@ -4,10 +4,12 @@ import com.devpractice.shoppingcartbackend.dto.request.CategoryRequest;
 import com.devpractice.shoppingcartbackend.dto.response.CategoryResponse;
 import com.devpractice.shoppingcartbackend.exception.DatabaseException;
 import com.devpractice.shoppingcartbackend.exception.ResourceConflictException;
+import com.devpractice.shoppingcartbackend.exception.ResourceNotFoundException;
 import com.devpractice.shoppingcartbackend.mapper.CategoryMapper;
 import com.devpractice.shoppingcartbackend.model.Category;
 import com.devpractice.shoppingcartbackend.repository.CategoryRepository;
 import com.devpractice.shoppingcartbackend.service.interfaces.CategoryService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ public class CategoryServiceImp implements CategoryService {
     private final CategoryMapper categoryMapper;
 
     @Override
+    @Transactional
     public CategoryResponse createCategory(CategoryRequest categoryRequest) {
         if (categoryRepository.existsByName(categoryRequest.name())) {
             throw new ResourceConflictException("Category with name " + categoryRequest.name() + " already exists");
