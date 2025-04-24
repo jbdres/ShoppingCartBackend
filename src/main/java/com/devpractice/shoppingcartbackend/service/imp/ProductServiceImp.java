@@ -2,10 +2,14 @@ package com.devpractice.shoppingcartbackend.service.imp;
 
 import com.devpractice.shoppingcartbackend.dto.request.ProductRequest;
 import com.devpractice.shoppingcartbackend.dto.response.ProductResponse;
+import com.devpractice.shoppingcartbackend.exception.DatabaseException;
 import com.devpractice.shoppingcartbackend.mapper.ProductMapper;
+import com.devpractice.shoppingcartbackend.model.Product;
 import com.devpractice.shoppingcartbackend.repository.ProductRepository;
 import com.devpractice.shoppingcartbackend.service.interfaces.ProductService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -19,8 +23,15 @@ public class ProductServiceImp implements ProductService {
     private final ProductMapper productMapper;
 
     @Override
+    @Transactional
     public ProductResponse createProduct(ProductRequest productRequest) {
-        return null;
+        try {
+            Product product = productMapper.toEntity(productRequest);
+            Product savedProduct = productRepository.save(product);
+            return productMapper.toResponse(savedProduct);
+        } catch (DataAccessException e) {
+            throw new DatabaseException("Error while saving product to the database");
+        }
     }
 
     @Override
