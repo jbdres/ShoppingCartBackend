@@ -62,7 +62,14 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public void deleteProduct(Long id) {
-
+        if (!productRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Product with id " + id + " not found");
+        }
+        try {
+            productRepository.deleteById(id);
+        } catch (DataAccessException e) {
+            throw new DatabaseException("Error while deleting product from the database");
+        }
     }
 
     @Override
