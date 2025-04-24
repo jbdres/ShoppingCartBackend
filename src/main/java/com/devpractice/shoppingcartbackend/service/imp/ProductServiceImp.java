@@ -3,6 +3,7 @@ package com.devpractice.shoppingcartbackend.service.imp;
 import com.devpractice.shoppingcartbackend.dto.request.ProductRequest;
 import com.devpractice.shoppingcartbackend.dto.response.ProductResponse;
 import com.devpractice.shoppingcartbackend.exception.DatabaseException;
+import com.devpractice.shoppingcartbackend.exception.ResourceNotFoundException;
 import com.devpractice.shoppingcartbackend.mapper.ProductMapper;
 import com.devpractice.shoppingcartbackend.model.Product;
 import com.devpractice.shoppingcartbackend.repository.ProductRepository;
@@ -36,7 +37,9 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public ProductResponse getProductById(Long id) {
-        return null;
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
+        return productMapper.toResponse(product);
     }
 
     @Override
