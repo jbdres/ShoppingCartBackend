@@ -106,7 +106,10 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public List<ProductResponse> getProductsByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice) {
-        return List.of();
+        return productRepository.findByPriceBetween(minPrice, maxPrice)
+                .stream()
+                .map(productMapper::toResponse)
+                .toList();
     }
 
     @Override
