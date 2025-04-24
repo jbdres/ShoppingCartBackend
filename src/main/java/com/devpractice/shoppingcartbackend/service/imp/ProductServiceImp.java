@@ -98,7 +98,10 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public List<ProductResponse> getProductsByBrandContainingIgnoreCaseAndNameContainingIgnoreCase(String brand, String name) {
-        return List.of();
+        return productRepository.findByBrandContainingIgnoreCaseAndNameContainingIgnoreCase(brand, name)
+                .stream()
+                .map(productMapper::toResponse)
+                .toList();
     }
 
     @Override
