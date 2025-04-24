@@ -43,8 +43,21 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
+    @Transactional
     public ProductResponse updateProduct(Long id, ProductRequest productRequest) {
-        return null;
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
+        product.setName(productRequest.name());
+        product.setBrand(productRequest.brand());
+        product.setPrice(productRequest.price());
+        product.setQuantity(productRequest.quantity());
+        product.setDescription(productRequest.description());
+        try {
+            Product savedProduct = productRepository.save(product);
+            return productMapper.toResponse(savedProduct);
+        } catch (DataAccessException e) {
+            throw new DatabaseException("Error while updating product to the database");
+        }
     }
 
     @Override
