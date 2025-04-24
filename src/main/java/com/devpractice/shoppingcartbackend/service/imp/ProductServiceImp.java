@@ -74,7 +74,10 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public List<ProductResponse> getAllProducts() {
-        return List.of();
+        return productRepository.findAll()
+                .stream()
+                .map(productMapper::toResponse)
+                .toList();
     }
 
     @Override
