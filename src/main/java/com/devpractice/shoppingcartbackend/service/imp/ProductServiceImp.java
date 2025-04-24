@@ -82,7 +82,10 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public List<ProductResponse> getProductsByNameContainingIgnoreCase(String name) {
-        return List.of();
+        return productRepository.findByNameContainingIgnoreCase(name)
+                .stream()
+                .map(productMapper::toResponse)
+                .toList();
     }
 
     @Override
