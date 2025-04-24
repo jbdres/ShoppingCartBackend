@@ -2,14 +2,21 @@ package com.devpractice.shoppingcartbackend.service.imp;
 
 import com.devpractice.shoppingcartbackend.dto.request.ProductRequest;
 import com.devpractice.shoppingcartbackend.dto.response.ProductResponse;
+import com.devpractice.shoppingcartbackend.mapper.ProductMapper;
+import com.devpractice.shoppingcartbackend.repository.ProductRepository;
 import com.devpractice.shoppingcartbackend.service.interfaces.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImp implements ProductService {
+
+    private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
     @Override
     public ProductResponse createProduct(ProductRequest productRequest) {
