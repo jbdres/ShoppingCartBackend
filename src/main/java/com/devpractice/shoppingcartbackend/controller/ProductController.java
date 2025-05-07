@@ -50,4 +50,12 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/search/")
+    public ResponseEntity<List<ProductResponse>> getProductByNameContainingIgnoreCase(
+            @RequestParam(value = "name", required = false) String name
+    ) {
+        List<ProductResponse> productResponses = productService.getProductsByNameContainingIgnoreCase(name);
+        return ResponseEntity.ok(productResponses);
+    }
+
 }
